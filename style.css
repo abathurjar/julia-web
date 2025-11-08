@@ -866,37 +866,7 @@ footer p {
     }
 }
 
-/* Фикс для якорных ссылок */
-:target::before {
-    content: '';
-    display: block;
-    height: 80px;
-    margin-top: -80px;
-    visibility: hidden;
-}
 
-@media (max-width: 768px) {
-    :target::before {
-        height: 70px;
-        margin-top: -70px;
-    }
-}
-
-/* Дополнительные отступы */
-#works,
-#about,
-#contact {
-    padding-top: 1px; /* Создает контекст для margin */
-    margin-top: -80px;
-}
-
-@media (max-width: 768px) {
-    #works,
-    #about,
-    #contact {
-        margin-top: -70px;
-    }
-}
 
 /* Мобильная адаптивность */
 @media (max-width: 768px) {

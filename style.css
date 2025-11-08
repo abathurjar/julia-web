@@ -829,40 +829,39 @@ footer p {
     }
 }
 
-/* Пиксельный дракончик (ретро-стиль) */
-/* Пиксельный дракончик (эмодзи - РЕКОМЕНДУЕМЫЙ) */
-.pixel-dragon {
+/* Солнышко */
+.sun-emoji {
     position: absolute;
-    font-size: 40px;
-    animation: flyPixelDragon 15s ease-in-out infinite;
+    font-size: 45px;
+    animation: flySun 20s ease-in-out infinite;
     z-index: 2;
     pointer-events: none;
-    filter: drop-shadow(0 0 15px rgba(255, 107, 0, 0.9));
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9));
+    text-shadow: 2px 2px 0px rgba(255, 140, 0, 0.5);
 }
 
-@keyframes flyPixelDragon {
+@keyframes flySun {
     0% {
-        transform: translateX(-100px) translateY(50px) rotate(0deg) scale(0.7);
+        transform: translateX(-100px) translateY(40px) rotate(0deg) scale(0.8);
         opacity: 0;
     }
     10% {
         opacity: 1;
     }
     25% {
-        transform: translateX(25%) translateY(-25px) rotate(-15deg) scale(1);
+        transform: translateX(25%) translateY(-15px) rotate(-45deg) scale(1);
     }
     50% {
-        transform: translateX(50%) translateY(20px) rotate(10deg) scale(1.2);
+        transform: translateX(50%) translateY(25px) rotate(90deg) scale(1.2);
     }
     75% {
-        transform: translateX(75%) translateY(-20px) rotate(-8deg) scale(1);
+        transform: translateX(75%) translateY(-10px) rotate(-30deg) scale(1);
     }
     90% {
         opacity: 1;
     }
     100% {
-        transform: translateX(calc(100% + 100px)) translateY(35px) rotate(0deg) scale(0.7);
+        transform: translateX(calc(100% + 100px)) translateY(30px) rotate(180deg) scale(0.8);
         opacity: 0;
     }
 }

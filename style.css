@@ -160,7 +160,7 @@ nav {
     transform: translateY(-2px);
 }
 
-/* Работы - адаптивные для широких экранов */
+/* Работы - с исправленными видео */
 .works {
     padding: 8rem 3rem;
     background: #ffffff;
@@ -200,25 +200,26 @@ nav {
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 62.5%; /* 16:10 соотношение для широких экранов */
-    background: #f8f8f8;
+    padding-bottom: 56.25%; /* 16:9 соотношение */
+    background: #000000;
     overflow: hidden;
     margin-bottom: 1.5rem;
-    border: 1px solid #f0f0f0;
 }
 
 .video-container video {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
     transition: all 0.4s ease;
 }
 
 .work-item:hover .video-container video {
-    transform: scale(1.03);
+    transform: translate(-50%, -50%) scale(1.02);
 }
 
 .work-content {
@@ -421,8 +422,21 @@ footer p {
         display: none;
     }
     
+    .hero {
+        padding: 0 1.5rem;
+        margin-top: 60px;
+    }
+    
     .hero-content h1 {
         font-size: 2.5rem;
+    }
+    
+    .tagline {
+        font-size: 1.1rem;
+    }
+    
+    .description {
+        font-size: 1rem;
     }
     
     .works-grid {
@@ -446,5 +460,13 @@ footer p {
         width: 100%;
         max-width: 280px;
         justify-content: center;
+    }
+    
+    .work-item h3 {
+        font-size: 1.2rem;
+    }
+    
+    .work-item p {
+        font-size: 1rem;
     }
 }

@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Плавающие частицы фона -->
+    <div class="floating-particle"></div>
+    <div class="floating-particle"></div>
+    <div class="floating-particle"></div>
+    <div class="floating-particle"></div>
+    <div class="floating-particle"></div>
+
     <!-- Шапка -->
     <header>
         <nav>
@@ -35,94 +42,28 @@
     <section id="works" class="works">
         <h2>SELECTED WORK</h2>
         <div class="works-grid">
-            <div class="work-item">
-    <div class="video-container">
-        <video autoplay muted loop playsinline class="autoplay">
-            <source src="videos/pink.mp4" type="video/mp4">
-            Ваш браузер не поддерживает видео
-        </video>
-    </div>
-    <h3>Lipgloss</h3>
-    <p>3D Animation for Brand</p>
-</div>
-
-<div class="work-item">
-    <div class="video-container">
-        <video autoplay muted loop playsinline class="autoplay">
-            <source src="videos/abathur.mp4" type="video/mp4">
-            Ваш браузер не поддерживает видео
-        </video>
-    </div>
-    <h3>Abathur</h3>
-    <p>3D Animation for YouTube</p>
-</div>
-
-<div class="work-item">
-    <div class="video-container">
-        <video autoplay muted loop playsinline class="autoplay">
-            <source src="videos/solar.mp4" type="video/mp4">
-            Ваш браузер не поддерживает видео
-        </video>
-    </div>
-    <h3>Solar</h3>
-    <p>3D Animation Solar System</p>
-</div>
-
-<div class="work-item">
-    <div class="video-container">
-        <video autoplay muted loop playsinline class="autoplay">
-            <source src="videos/slurry.mp4" type="video/mp4">
-            Ваш браузер не поддерживает видео
-        </video>
-    </div>
-    <h3>Slurry</h3>
-    <p>3D Animtion Static Object</p>
-</div>
+            <!-- Твои видео работы -->
         </div>
     </section>
 
-<!-- Обо мне -->
-<section id="about" class="about">
-    <!-- Пиксельные декорации -->
-    <div class="pixel-decoration"></div>
-    <div class="pixel-decoration"></div>
-    <div class="pixel-decoration"></div>
-    
-    <div class="about-content">
-        <h2>Обо мне</h2>
-        
-        <div class="about-text">
-            <p>Привет! Я <strong>Юлия</strong> - motion-дизайнер с страстью к созданию визуальных историй, которые оживляют бренды и вдохновляют аудиторию.</p>
+    <!-- Обо мне -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <h2>Обо мне</h2>
             
-            <p>Специализируюсь на <strong>3D анимации</strong>, <strong>моушн-графике</strong> и <strong>визуальных эффектах</strong>, превращая сложные идеи в захватывающие визуальные нарративы.</p>
-        </div>
-        
-        <div class="skills-grid">
-            <div class="skill-item">
-                <h4>3D Анимация</h4>
-                <p>Создание персонажей и динамичных сцен</p>
-            </div>
-            <div class="skill-item">
-                <h4>Motion Design</h4>
-                <p>Анимация брендов и продуктов</p>
-            </div>
-            <div class="skill-item">
-                <h4>Visual Effects</h4>
-                <p>Визуальные эффекты и композитинг</p>
-            </div>
-            <div class="skill-item">
-                <h4>Брендинг</h4>
-                <p>Анимация логотипов и айдентики</p>
+            <div class="about-text">
+                <p>Привет! Я <strong>Юлия</strong> - motion-дизайнер с страстью к созданию визуальных историй, которые оживляют бренды и вдохновляют аудиторию.</p>
+                
+                <p>Специализируюсь на <strong>3D анимации</strong>, <strong>моушн-графике</strong> и <strong>визуальных эффектах</strong>, превращая сложные идеи в захватывающие визуальные нарративы.</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Контакты -->
     <section id="contact" class="contact">
-        <h2>Контакты</h2>
+        <h2>CONTACT</h2>
         <div class="contact-links">
-            <a href="https://t.me/yulyabyukliu">📧 Telegram</a>
+            <a href="t.me/yulyabyukliu">📧 Telegram</a>
             <a href="https://instagram.com/jbyuk">📱 Instagram</a>
             <a href="https://ru.pinterest.com/julia_sufle/">🎨 Pinterest</a>
         </div>
@@ -130,54 +71,9 @@
 
     <!-- Подвал -->
     <footer>
-        <p>© 2025 Yulia Byukliy. Все права защищены.</p>
+        <p>© 2025 Julia Byukliy. Все права защищены.</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
-
-<script>
-    // Плавная прокрутка для кнопки
-    document.querySelector('.cta-button').addEventListener('click', function() {
-        document.querySelector('#works').scrollIntoView({ 
-            behavior: 'smooth' 
-        });
-    });
-
-    // Плавная прокрутка для меню
-    document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({ 
-                behavior: 'smooth' 
-            });
-        });
-    });
-
-    // Анимация появления элементов при скролле
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Наблюдаем за карточками работ
-    document.querySelectorAll('.work-item').forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(30px)';
-        item.style.transition = 'all 0.6s ease';
-        observer.observe(item);
-    });
-</script>
-
 </html>
-

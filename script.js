@@ -46,7 +46,7 @@ function initVideoModal() {
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <button class="modal-close">&times;</button>
-            <video controls>
+            <video controls style="width: 100%; height: auto;">
                 Ваш браузер не поддерживает видео
             </video>
             <div class="video-info">
@@ -61,24 +61,36 @@ function initVideoModal() {
 
     // Открытие модального окна при клике на видео
     document.querySelectorAll('.video-container').forEach(container => {
-        container.addEventListener('click', function() {
+        container.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             const video = this.querySelector('video');
-            const source = video.querySelector('source').src;
+            const source = video.querySelector('source');
+            if (!source) {
+                console.error('Source не найден');
+                return;
+            }
+            
+            const videoSrc = source.src;
             const workContent = this.closest('.work-item').querySelector('.work-content');
             const title = workContent.querySelector('h3').textContent;
             const description = workContent.querySelector('p').textContent;
             
-            openModal(source, title, description);
+            console.log('Открываем модальное окно для:', videoSrc);
+            openModal(videoSrc, title, description);
         });
     });
 
     function openModal(videoSrc, title, description) {
+        console.log('openModal вызван с:', videoSrc);
+        
         // Останавливаем все фоновые видео
         document.querySelectorAll('.video-container video').forEach(vid => {
             vid.pause();
         });
         
-        // Настраиваем модальное видео
+        // Полностью пересоздаем source элемент
         modalVideo.innerHTML = '';
         const source = document.createElement('source');
         source.src = videoSrc;
@@ -95,27 +107,53 @@ function initVideoModal() {
         // Загружаем видео
         modalVideo.load();
         
-        // Пытаемся воспроизвести, но не блокируем если браузер запрещает автоплей
-        modalVideo.play().catch(e => {
-            console.log('Браузер запретил автовоспроизведение - пользователь запустит вручную');
+        console.log('Видео загружено, пытаемся воспроизвести...');
+        
+        // Пытаемся воспроизвести
+        modalVideo.play().then(() => {
+            console.log('Видео успешно воспроизводится');
+        }).catch(e => {
+            console.log('Автовоспроизведение заблокировано, но видео готово:', e);
+            // Показываем сообщение пользователю
+            const playButton = document.createElement('div');
+            playButton.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(255, 107, 0, 0.9);
+                color: white;
+                padding: 15px 30px;
+                border-radius: 30px;
+                cursor: pointer;
+                font-weight: bold;
+                z-index: 10003;
+            `;
+            playButton.textContent = '▶ Нажмите для воспроизведения';
+            playButton.onclick = () => {
+                modalVideo.play();
+                playButton.remove();
+            };
+            modal.querySelector('.modal-content').appendChild(playButton);
         });
     }
 
     function closeModal() {
+        console.log('Закрываем модальное окно');
         const modal = document.querySelector('.video-modal');
         modal.classList.remove('active');
         modalVideo.pause();
         modalVideo.currentTime = 0;
         document.body.style.overflow = 'auto';
         
-        // Перезапускаем фоновые видео через секунду
+        // Перезапускаем фоновые видео
         setTimeout(() => {
             document.querySelectorAll('.video-container video').forEach(vid => {
                 vid.play().catch(e => {
-                    // Игнорируем ошибки автовоспроизведения для фоновых видео
+                    // Игнорируем ошибки автовоспроизведения
                 });
             });
-        }, 1000);
+        }, 500);
     }
 
     // Закрытие модального окна
@@ -128,76 +166,6 @@ function initVideoModal() {
             closeModal();
         }
     });
+    
+    console.log('Модальное окно инициализировано');
 }
-
-// === ПРОВЕРКА ВИДЕО ФАЙЛОВ ===
-function checkVideos() {
-    document.querySelectorAll('video source').forEach(source => {
-        const src = source.getAttribute('src');
-        
-        // Проверяем существование файла
-        fetch(src, { method: 'HEAD' })
-            .then(response => {
-                if (!response.ok) {
-                    console.error('Файл не найден:', src);
-                    showVideoError(source);
-                }
-            })
-            .catch(error => {
-                console.error('Ошибка загрузки:', src, error);
-                showVideoError(source);
-            });
-    });
-}
-
-function showVideoError(source) {
-    const video = source.closest('video');
-    const container = video.closest('.video-container');
-    
-    // Не блокируем клик, но показываем ошибку
-    container.style.position = 'relative';
-    
-    const errorMsg = document.createElement('div');
-    errorMsg.style.cssText = `
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: rgba(255, 0, 0, 0.8);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        z-index: 10;
-    `;
-    errorMsg.textContent = 'Файл не найден';
-    
-    container.appendChild(errorMsg);
-}
-
-// === АВТОЗАПУСК ФОНОВЫХ ВИДЕО ===
-function initBackgroundVideos() {
-    document.querySelectorAll('.video-container video').forEach(video => {
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-        
-        // Пытаемся запустить воспроизведение
-        video.play().catch(error => {
-            // Игнорируем ошибки автовоспроизведения - это нормально
-        });
-    });
-}
-
-// === ИНИЦИАЛИЗАЦИЯ ВСЕГО ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ===
-document.addEventListener('DOMContentLoaded', function() {
-    // Инициализируем модальное окно
-    initVideoModal();
-    
-    // Запускаем фоновые видео
-    initBackgroundVideos();
-    
-    // Проверяем наличие видео файлов
-    checkVideos();
-    
-    console.log('Сайт загружен! Модальное окно готово к работе.');
-});

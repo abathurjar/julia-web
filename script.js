@@ -58,3 +58,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Сайт загружен! Видео показываются полностью без обрезки.');
 });
+
+// Прокрутка галереи
+function scrollGallery(direction) {
+    const carousel = document.getElementById('galleryCarousel');
+    carousel.scrollBy({
+        left: direction,
+        behavior: 'smooth'
+    });
+}
+
+// Автопрокрутка галереи (опционально)
+function initGalleryAutoScroll() {
+    const carousel = document.getElementById('galleryCarousel');
+    let scrollAmount = 0;
+    
+    setInterval(() => {
+        scrollAmount += 300;
+        if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+            scrollAmount = 0;
+        }
+        carousel.scrollTo({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    }, 4000);
+}
+
+// Добавь в DOMContentLoaded:
+// initGalleryAutoScroll(); // Раскомментируй если хочешь автопрокрутку

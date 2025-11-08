@@ -767,4 +767,123 @@ footer p {
     .video-container video {
         object-fit: cover; /* Заполняем контейнер без черных полос */
     }
+
+    /* Модальное окно для видео */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.video-modal.active {
+    display: flex;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    position: relative;
+    background: #000;
+    border-radius: 12px;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    z-index: 10001;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.modal-content video {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    display: block;
+    background: #000;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10002;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255, 107, 0, 0.8);
+    transform: scale(1.1);
+}
+
+.video-info {
+    padding: 1.5rem;
+    background: #000;
+    color: white;
+}
+
+.video-title {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.video-description {
+    color: #ccc;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Делаем видео кликабельными */
+.video-container {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.video-container:hover {
+    transform: scale(1.02);
+}
+
+.video-container::after {
+    content: '🔍 Нажмите для просмотра';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 107, 0, 0.9);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.video-container:hover::after {
+    opacity: 1;
+}
 }

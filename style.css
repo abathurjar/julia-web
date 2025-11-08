@@ -4,31 +4,6 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-padding-top: 80px; /* Высота шапки */
-}
-
-@media (max-width: 768px) {
-    html {
-        scroll-padding-top: 70px; /* Меньшая высота на мобильных */
-    }
-}
-
-/* Дополнительные отступы для секций */
-#works, 
-#about, 
-#contact {
-    scroll-margin-top: 80px;
-}
-
-@media (max-width: 768px) {
-    #works, 
-    #about, 
-    #contact {
-        scroll-margin-top: 70px;
-    }
-}
-
 @font-face {
     font-family: 'Neue Machina';
     src: url('https://fonts.cdnfonts.com/css/neue-machina');
@@ -888,6 +863,38 @@ footer p {
     100% {
         transform: translateX(calc(100% + 100px)) translateY(30px) rotate(180deg) scale(0.8);
         opacity: 0;
+    }
+}
+
+/* Фикс для якорных ссылок */
+:target::before {
+    content: '';
+    display: block;
+    height: 80px;
+    margin-top: -80px;
+    visibility: hidden;
+}
+
+@media (max-width: 768px) {
+    :target::before {
+        height: 70px;
+        margin-top: -70px;
+    }
+}
+
+/* Дополнительные отступы */
+#works,
+#about,
+#contact {
+    padding-top: 1px; /* Создает контекст для margin */
+    margin-top: -80px;
+}
+
+@media (max-width: 768px) {
+    #works,
+    #about,
+    #contact {
+        margin-top: -70px;
     }
 }
 

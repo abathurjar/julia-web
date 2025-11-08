@@ -56,5 +56,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Запускаем фоновые видео
     initBackgroundVideos();
     
-    console.log('Сайт загружен! Ховер-эффекты активны.');
+    console.log('Сайт загружен! Видео показываются полностью без обрезки.');
 });

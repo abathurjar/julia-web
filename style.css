@@ -471,25 +471,25 @@ nav {
 
 .gallery-section h2 {
     text-align: center;
-    font-size: 4rem; /* ← ИЗМЕНИТЬ: было 3rem, стало 4rem */
+    font-size: 4rem;
     margin-bottom: 4rem;
     color: #000000;
     font-weight: 800;
     letter-spacing: -0.02em;
     text-transform: uppercase;
     position: relative;
-    display: inline-block; /* ← ДОБАВИТЬ */
-    left: 50%; /* ← ДОБАВИТЬ */
-    transform: translateX(-50%); /* ← ДОБАВИТЬ */
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .gallery-section h2::after {
     content: '';
     position: absolute;
-    bottom: -10px; /* ← ИЗМЕНИТЬ: было -15px, стало -10px */
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px; /* ← ИЗМЕНИТЬ: было 100px, стало 80px */
+    width: 80px;
     height: 3px;
     background: #00ff88;
     animation: linePulse 2s ease-in-out infinite;
@@ -537,38 +537,61 @@ nav {
     padding: 4rem 2rem 2rem;
     overflow-x: auto;
     scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: #00ff88 transparent;
+    scrollbar-width: none; /* Скрываем стандартный скроллбар в Firefox */
     cursor: grab;
     position: relative;
     z-index: 2;
 }
 
+/* Скрываем стандартный скроллбар в Webkit браузерах */
 .gallery-carousel::-webkit-scrollbar {
-    height: 8px;
-}
-
-.gallery-carousel::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.gallery-carousel::-webkit-scrollbar-thumb {
-    background: #00ff88;
-    border-radius: 4px;
-}
-
-.gallery-carousel::-webkit-scrollbar-thumb:hover {
-    background: #00cc6a;
+    display: none;
 }
 
 .gallery-carousel:active {
     cursor: grabbing;
 }
 
+/* Индикатор прокрутки для десктопа */
+.gallery-scroll-hint {
+    text-align: center;
+    margin-top: 2rem;
+    color: #666;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+    display: block;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Анимация для подсказки скролла */
+@keyframes bounceHint {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(0);
+    }
+    40% {
+        transform: translateX(-10px);
+    }
+    60% {
+        transform: translateX(-5px);
+    }
+}
+
+.gallery-scroll-hint::after {
+    content: '← scroll →';
+    display: inline-block;
+    margin-left: 10px;
+    animation: bounceHint 2s infinite;
+}
+
 /* Элементы галереи с эффектом подвешивания */
 .gallery-item {
     flex: 0 0 320px;
-    height: 550px; /* ← ИЗМЕНИТЬ: было 450px, стало 550px (+100px) */
+    height: 550px;
     background: #ffffff;
     border-radius: 15px;
     overflow: hidden;
@@ -576,6 +599,7 @@ nav {
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     transform-origin: center top;
+    scroll-snap-align: start;
 }
 
 .gallery-item::before {
@@ -640,49 +664,9 @@ nav {
     opacity: 0.9;
 }
 
-/* Индикатор прокрутки */
-.scroll-indicator {
-    text-align: center;
-    margin-top: 2rem;
-    color: #666;
-    font-size: 0.9rem;
-    opacity: 0.7;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-}
-
-/* Кнопки навигации галереи */
+/* Убираем кнопки навигации */
 .carousel-nav {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 3rem;
-}
-
-.carousel-btn {
-    width: 60px;
-    height: 60px;
-    border: 2px solid #00ff88;
-    background: transparent;
-    border-radius: 50%;
-    color: #00ff88;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.carousel-btn:hover {
-    background: #00ff88;
-    color: white;
-    transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+    display: none;
 }
 
 /* ===== РАБОТЫ (WORKS) ===== */
@@ -717,11 +701,6 @@ nav {
     height: 3px;
     background: #00ff88;
     animation: linePulse 2s ease-in-out infinite;
-}
-
-@keyframes linePulse {
-    0%, 100% { width: 80px; opacity: 1; }
-    50% { width: 120px; opacity: 0.8; }
 }
 
 .works-grid {
@@ -1296,19 +1275,8 @@ footer p {
         height: 480px;
     }
     
-    .scroll-indicator {
-        margin-top: 1.5rem;
-        font-size: 0.8rem;
-    }
-    
-    .carousel-nav {
-        margin-top: 2rem;
-    }
-    
-    .carousel-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+    .gallery-scroll-hint {
+        display: none; /* На мобильных не показываем подсказку */
     }
 
     /* Работы */

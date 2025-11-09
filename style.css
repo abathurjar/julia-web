@@ -983,8 +983,8 @@ footer p {
 .modal-content {
     display: block;
     max-width: 95%;
-    max-height: 90%;
-    margin: 2% auto;
+    max-height: 95%;
+    margin: 1% auto;
     object-fit: contain;
     animation: zoomIn 0.3s ease;
     border-radius: 10px;
@@ -998,7 +998,7 @@ footer p {
 
 .modal-close {
     position: absolute;
-    top: 25px;
+    top: 20px;
     right: 35px;
     color: #fff;
     font-size: 45px;
@@ -1023,7 +1023,7 @@ footer p {
 
 .modal-caption {
     position: absolute;
-    bottom: 30px;
+    bottom: 20px;
     left: 0;
     width: 100%;
     text-align: center;

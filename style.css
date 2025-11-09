@@ -424,43 +424,6 @@ nav {
     }
 }
 
-/* Солнышко */
-.sun-emoji {
-    position: absolute;
-    font-size: 45px;
-    animation: flySun 20s ease-in-out infinite;
-    z-index: 2;
-    pointer-events: none;
-    filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.9));
-    text-shadow: 2px 2px 0px rgba(0, 204, 102, 0.5);
-}
-
-@keyframes flySun {
-    0% {
-        transform: translateX(-100px) translateY(40px) rotate(0deg) scale(0.8);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    25% {
-        transform: translateX(25%) translateY(-15px) rotate(-45deg) scale(1);
-    }
-    50% {
-        transform: translateX(50%) translateY(25px) rotate(90deg) scale(1.2);
-    }
-    75% {
-        transform: translateX(75%) translateY(-10px) rotate(-30deg) scale(1);
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(calc(100% + 100px)) translateY(30px) rotate(180deg) scale(0.8);
-        opacity: 0;
-    }
-}
-
 /* ===== УЛУЧШЕННАЯ ГАЛЕРЕЯ РАБОТ ===== */
 .gallery-section {
     padding: 6rem 3rem;
@@ -471,33 +434,34 @@ nav {
 
 .gallery-section h2 {
     text-align: center;
-    font-size: 4rem; /* ← ИЗМЕНИТЬ: было 3rem, стало 4rem */
+    font-size: 5rem; /* УВЕЛИЧЕНО С 4rem ДО 5rem */
     margin-bottom: 4rem;
     color: #000000;
     font-weight: 800;
     letter-spacing: -0.02em;
     text-transform: uppercase; 
     position: relative;
-    display: inline-block; /* ← ДОБАВИТЬ */
-    left: 50%; /* ← ДОБАВИТЬ */
-    transform: translateX(-50%); /* ← ДОБАВИТЬ */
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1.1;
 }
 
 .gallery-section h2::after {
     content: '';
     position: absolute;
-    bottom: -10px; /* ← ИЗМЕНИТЬ: было -15px, стало -10px */
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px; /* ← ИЗМЕНИТЬ: было 100px, стало 80px */
-    height: 3px;
+    width: 100px;
+    height: 4px;
     background: #00ff88;
     animation: linePulse 2s ease-in-out infinite;
 }
 
 @keyframes linePulse {
-    0%, 100% { width: 80px; opacity: 1; }
-    50% { width: 120px; opacity: 0.8; }
+    0%, 100% { width: 100px; opacity: 1; }
+    50% { width: 150px; opacity: 0.8; }
 }
 
 /* Контейнер для галереи с вешалкой */
@@ -568,7 +532,7 @@ nav {
 /* Элементы галереи с эффектом подвешивания */
 .gallery-item {
     flex: 0 0 320px;
-    height: 550px; /* ← ИЗМЕНИТЬ: было 450px, стало 550px (+100px) */
+    height: 550px;
     background: #ffffff;
     border-radius: 15px;
     overflow: hidden;
@@ -694,7 +658,7 @@ nav {
 
 .works h2 {
     text-align: center;
-    font-size: 4rem;
+    font-size: 5rem; /* УВЕЛИЧЕНО С 4rem ДО 5rem */
     margin-bottom: 3rem;
     color: #000000;
     font-weight: 800;
@@ -705,23 +669,19 @@ nav {
     display: inline-block;
     left: 50%;
     transform: translateX(-50%);
+    line-height: 1.1;
 }
 
 .works h2::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
+    width: 100px;
+    height: 4px;
     background: #00ff88;
     animation: linePulse 2s ease-in-out infinite;
-}
-
-@keyframes linePulse {
-    0%, 100% { width: 80px; opacity: 1; }
-    50% { width: 120px; opacity: 0.8; }
 }
 
 .works-grid {
@@ -949,7 +909,7 @@ nav {
 }
 
 .about h2 {
-    font-size: 4rem;
+    font-size: 5rem; /* УВЕЛИЧЕНО С 4rem ДО 5rem */
     margin-bottom: 3rem;
     color: #000000;
     font-weight: 800;
@@ -957,16 +917,17 @@ nav {
     text-transform: uppercase;
     position: relative;
     display: inline-block;
+    line-height: 1.1;
 }
 
 .about h2::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
+    width: 100px;
+    height: 4px;
     background: #00ff88;
     animation: linePulse 2s ease-in-out infinite;
 }
@@ -1254,29 +1215,23 @@ footer p {
     opacity: 0.9;
 }
 
-/* Адаптивность для мобильных */
-@media (max-width: 768px) {
-    .video-modal .video-modal-content {
-        width: 95%;
-        margin: 10% auto;
-    }
-    
-    .play-button {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
-    
-    .video-modal .modal-title {
-        font-size: 1.2rem;
-    }
-    
-    .video-modal .modal-description {
-        font-size: 1rem;
+/* ===== МОБИЛЬНАЯ АДАПТИВНОСТЬ ===== */
+@media (max-width: 1200px) {
+    .gallery-section h2,
+    .works h2,
+    .about h2 {
+        font-size: 4.5rem;
     }
 }
 
-/* ===== МОБИЛЬНАЯ АДАПТИВНОСТЬ ===== */
+@media (max-width: 992px) {
+    .gallery-section h2,
+    .works h2,
+    .about h2 {
+        font-size: 4rem;
+    }
+}
+
 @media (max-width: 768px) {
     /* Бургер-меню */
     .menu-toggle {
@@ -1382,6 +1337,27 @@ footer p {
     
     .description {
         font-size: 1rem;
+    }
+
+    /* Заголовки на мобильных */
+    .gallery-section h2,
+    .works h2,
+    .about h2 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .gallery-section h2::after,
+    .works h2::after,
+    .about h2::after {
+        bottom: -10px;
+        width: 80px;
+        height: 3px;
+    }
+    
+    @keyframes linePulse {
+        0%, 100% { width: 80px; opacity: 1; }
+        50% { width: 120px; opacity: 0.8; }
     }
 
     /* Галерея на мобильных */
@@ -1499,6 +1475,16 @@ footer p {
     .modal-description {
         font-size: 1rem;
     }
+}
 
-
+@media (max-width: 480px) {
+    .gallery-section h2,
+    .works h2,
+    .about h2 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
 }

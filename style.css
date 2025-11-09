@@ -58,6 +58,26 @@ body::before {
     }
 }
 
+/* ===== АНИМАЦИИ ЛОГОТИПА ===== */
+@keyframes logoDoubleSquare {
+    0%, 100% { 
+        transform: rotate(0deg);
+    }
+    50% { 
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes logoInnerSquare {
+    0%, 100% { 
+        opacity: 1;
+    }
+    50% { 
+        opacity: 0.5;
+    }
+}
+
+
 /* Плавающие частицы */
 .floating-particle {
     position: fixed;
@@ -893,22 +913,24 @@ nav {
     text-align: center;
     position: relative;
     overflow: hidden;
+    /* ДОБАВЬ ЭТИ СТРОКИ */
+    isolation: isolate; /* Создаем новый контекст наложения */
 }
 
 /* Анимированный фон с градиентами */
 .about::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -50px; /* РАСШИРЯЕМ ФОН ВВЕРХ */
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% + 100px); /* УВЕЛИЧИВАЕМ ВЫСОТУ */
     background: 
         radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(0, 255, 136, 0.08) 0%, transparent 50%);
     animation: gradientShift 8s ease-in-out infinite;
-    z-index: 1;
+    z-index: -1; /* ОСТАВЛЯЕМ -1 */
 }
 
 @keyframes gradientShift {

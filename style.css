@@ -143,6 +143,7 @@ nav {
     margin: 0 auto;
 }
 
+/* ===== ЛОГОТИП С ДВОЙНЫМ КВАДРАТОМ ===== */
 .logo {
     font-weight: 800;
     font-size: 1.3rem;
@@ -159,31 +160,40 @@ nav {
     content: '';
     width: 20px;
     height: 20px;
-    background: #ff6b00;
-    border-radius: 50%;
+    border: 2px solid #ff6b00;
     display: block;
     flex-shrink: 0;
-    animation: logoSpin 4s linear infinite;
+    position: relative;
+    animation: logoDoubleSquare 3s ease-in-out infinite;
 }
 
-@keyframes logoSpin {
-    0% { 
+.logo::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #ff6b00;
+    position: absolute;
+    left: 16px; /* Отступ от левого края */
+    top: 50%;
+    transform: translateY(-50%);
+    animation: logoInnerSquare 3s ease-in-out infinite;
+}
+
+@keyframes logoDoubleSquare {
+    0%, 100% { 
         transform: rotate(0deg);
-        background: #ff6b00;
-    }
-    25% { 
-        background: #ff8c00;
     }
     50% { 
-        transform: rotate(180deg);
-        background: #ff5500;
+        transform: rotate(90deg);
     }
-    75% { 
-        background: #ff8c00;
+}
+
+@keyframes logoInnerSquare {
+    0%, 100% { 
+        opacity: 1;
     }
-    100% { 
-        transform: rotate(360deg);
-        background: #ff6b00;
+    50% { 
+        opacity: 0.5;
     }
 }
 

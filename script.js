@@ -6,7 +6,7 @@ document.querySelector('.cta-button').addEventListener('click', function() {
 });
 
 // Плавная прокрутка для всех ссылок в меню
-document.querySelectorAll('nav a').forEach(link => {
+document.querySelectorAll('.nav-left a').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
@@ -174,32 +174,38 @@ function scrollGallery(direction) {
     }
 }
 
-// === БУРГЕР-МЕНЮ ===
+// === БУРГЕР-МЕНЮ ДЛЯ НОВОЙ СТРУКТУРЫ ===
 function initBurgerMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    const navLeft = document.querySelector('.nav-left');
+    const navRight = document.querySelector('.nav-right');
     
-    if (menuToggle && navLinks) {
+    if (menuToggle && navLeft && navRight) {
         console.log('Бургер-меню инициализировано');
         
         menuToggle.addEventListener('click', function(e) {
             e.stopPropagation();
-            navLinks.classList.toggle('active');
-            this.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+            navLeft.classList.toggle('mobile-active');
+            navRight.classList.toggle('mobile-active');
+            this.textContent = navLeft.classList.contains('mobile-active') ? '✕' : '☰';
         });
         
         // Закрываем меню при клике на ссылку
-        navLinks.querySelectorAll('a').forEach(link => {
+        document.querySelectorAll('.nav-left a, .nav-right a').forEach(link => {
             link.addEventListener('click', function() {
-                navLinks.classList.remove('active');
+                navLeft.classList.remove('mobile-active');
+                navRight.classList.remove('mobile-active');
                 menuToggle.textContent = '☰';
             });
         });
         
         // Закрываем меню при клике вне его области
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('nav') && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
+            if (!e.target.closest('nav') && 
+                (navLeft.classList.contains('mobile-active') || 
+                 navRight.classList.contains('mobile-active'))) {
+                navLeft.classList.remove('mobile-active');
+                navRight.classList.remove('mobile-active');
                 menuToggle.textContent = '☰';
             }
         });
@@ -211,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализируем видео превью
     initVideoPreviews();
     
-    // Инициализируем бургер-меню
+    // Инициализируем бургер-меню для новой структуры
     initBurgerMenu();
     
     console.log('Сайт загружен! Видеоплеер и модальные окна готовы.');

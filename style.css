@@ -127,9 +127,9 @@ body::before {
     }
 }
 
-/* ===== ШАПКА И НАВИГАЦИЯ ===== */
+/* ===== НОВАЯ ШАПКА КАК У MATHEUS DIDIER ===== */
 header {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     padding: 1.5rem 3rem;
     position: fixed;
     width: 100%;
@@ -145,19 +145,60 @@ nav {
     align-items: center;
     max-width: 1600px;
     margin: 0 auto;
+    position: relative;
 }
 
-/* ===== ЛОГОТИП С ДВОЙНЫМ КВАДРАТОМ ===== */
+/* Левая часть - меню */
+.nav-left {
+    display: flex;
+    gap: 3rem;
+    flex: 1;
+    justify-content: flex-start;
+}
+
+.nav-left a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-left a:hover {
+    color: #00ff88;
+}
+
+.nav-left a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #00ff88;
+    transition: width 0.3s ease;
+}
+
+.nav-left a:hover::after {
+    width: 100%;
+}
+
+/* Центр - логотип */
 .logo {
     font-weight: 800;
     font-size: 1.3rem;
     color: #000000;
     letter-spacing: -0.02em;
     text-transform: uppercase;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: 12px;
-    position: relative;
 }
 
 .logo::before {
@@ -183,53 +224,147 @@ nav {
     animation: logoInnerSquare 3s ease-in-out infinite;
 }
 
-@keyframes logoDoubleSquare {
-    0%, 100% { 
-        transform: rotate(0deg);
-    }
-    50% { 
-        transform: rotate(90deg);
-    }
+/* Правая часть - соцсети */
+.nav-right {
+    display: flex;
+    gap: 1.5rem;
+    flex: 1;
+    justify-content: flex-end;
 }
 
-@keyframes logoInnerSquare {
-    0%, 100% { 
-        opacity: 1;
-    }
-    50% { 
-        opacity: 0.5;
-    }
-}
-
-.nav-links a {
-    margin-left: 3rem;
+.social-icon {
     text-decoration: none;
     color: #000000;
-    font-weight: 500;
+    font-size: 1.3rem;
     transition: all 0.3s ease;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
     position: relative;
 }
 
-.nav-links a:hover {
+.social-icon:hover {
     color: #00ff88;
+    transform: translateY(-2px);
 }
 
-.nav-links a::after {
+.social-icon::before {
     content: '';
     position: absolute;
-    bottom: -5px;
+    top: 0;
     left: 0;
-    width: 0;
-    height: 2px;
+    right: 0;
+    bottom: 0;
     background: #00ff88;
-    transition: width 0.3s ease;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+    z-index: -1;
 }
 
-.nav-links a:hover::after {
-    width: 100%;
+.social-icon:hover::before {
+    transform: scale(1);
+}
+
+.social-icon:hover {
+    color: #000000;
+}
+
+/* Бургер меню для мобильных */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #000000;
+}
+
+/* ===== АДАПТИВНОСТЬ ДЛЯ НОВОЙ ШАПКИ ===== */
+@media (max-width: 968px) {
+    .nav-left {
+        gap: 2rem;
+    }
+    
+    .nav-right {
+        gap: 1rem;
+    }
+    
+    .logo {
+        font-size: 1.1rem;
+    }
+    
+    .logo::before {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .logo::after {
+        width: 8px;
+        height: 8px;
+        left: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1rem 1.5rem;
+    }
+    
+    .nav-left,
+    .nav-right {
+        display: none;
+    }
+    
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 0;
+    }
+    
+    .logo {
+        position: static;
+        transform: none;
+        margin: 0 auto;
+    }
+    
+    /* Мобильное меню */
+    .nav-left.mobile-active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+        gap: 1rem;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-right.mobile-active {
+        display: flex;
+        position: absolute;
+        top: calc(100% + 120px);
+        left: 0;
+        width: 100%;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+}
+
+/* Обновляем отступ для hero с новой шапкой */
+.hero {
+    margin-top: 80px;
 }
 
 /* ===== ГЛАВНЫЙ ЭКРАН (HERO) ===== */
@@ -1248,48 +1383,6 @@ footer p {
         z-index: 1001;
     }
     
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(20px);
-        padding: 1.5rem;
-        border-bottom: 1px solid #f0f0f0;
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    }
-    
-    .nav-links.active {
-        display: flex;
-    }
-    
-    .nav-links a {
-        margin-left: 0;
-        padding: 1rem 0;
-        font-size: 1rem;
-        font-weight: 600;
-        border-bottom: 1px solid #f0f0f0;
-        width: 100%;
-        display: block;
-    }
-    
-    .nav-links a:last-child {
-        border-bottom: none;
-    }
-    
-    .nav-links a:hover {
-        color: #00ff88;
-        background: rgba(0, 255, 136, 0.05);
-    }
-    
-    .nav-links a::after {
-        display: none;
-    }
 
     /* Шапка и навигация */
     header {

@@ -264,8 +264,29 @@ nav {
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
+    
+    /* Новая анимация растягивания */
     opacity: 0;
-    animation: fadeInUp 1s ease 0.4s forwards;
+    transform: scaleX(0.8) translateY(20px);
+    animation: stretchIn 1.2s ease 0.4s forwards;
+}
+
+@keyframes stretchIn {
+    0% {
+        opacity: 0;
+        transform: scaleX(0.8) translateY(20px);
+        letter-spacing: 8px;
+    }
+    50% {
+        opacity: 0.7;
+        transform: scaleX(1.05) translateY(0);
+        letter-spacing: 3px;
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1) translateY(0);
+        letter-spacing: 1px;
+    }
 }
 
 .description {

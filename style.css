@@ -304,7 +304,7 @@ nav {
 }
 
 /* ===== АДАПТИВНОСТЬ ДЛЯ НОВОЙ ШАПКИ ===== */
-@media (max-width: 968px) {
+@media (max-width: 1100px) {
     .nav-left {
         gap: 2rem;
     }
@@ -316,6 +316,20 @@ nav {
     .logo {
         font-size: 1.1rem;
     }
+}
+
+@media (max-width: 968px) {
+    .nav-left {
+        gap: 1.5rem;
+    }
+    
+    .nav-right {
+        gap: 0.8rem;
+    }
+    
+    .logo {
+        font-size: 1rem;
+    }
     
     .logo::before {
         width: 16px;
@@ -326,6 +340,28 @@ nav {
         width: 8px;
         height: 8px;
         left: 12px;
+    }
+}
+
+@media (max-width: 868px) {
+    /* Уменьшаем отступы и размеры перед переходом на мобильное меню */
+    .nav-left {
+        gap: 1rem;
+    }
+    
+    .nav-left a {
+        font-size: 0.9rem;
+    }
+    
+    .logo {
+        font-size: 0.9rem;
+        gap: 8px;
+    }
+    
+    .social-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
     }
 }
 
@@ -349,6 +385,7 @@ nav {
         position: static;
         transform: none;
         margin: 0 auto;
+        font-size: 1rem; /* Восстанавливаем размер на мобильных */
     }
     
     /* Мобильное меню */
@@ -381,6 +418,7 @@ nav {
         border-bottom: 1px solid #f0f0f0;
     }
 }
+
 
 /* Обновляем отступ для hero с новой шапкой */
 .hero {

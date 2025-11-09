@@ -268,7 +268,20 @@
         </div>
     </div>
 
-    
+        <!-- Модальное окно для видео -->
+    <div id="videoModal" class="modal video-modal">
+        <span class="modal-close" onclick="closeVideoModal()">&times;</span>
+        <div class="video-modal-content">
+            <video id="modalVideo" controls>
+                Ваш браузер не поддерживает видео
+            </video>
+            <div class="video-modal-caption">
+                <div id="videoModalTitle" class="modal-title"></div>
+                <div id="videoModalDescription" class="modal-description"></div>
+            </div>
+        </div>
+    </div>
+        
 
     <script src="script.js"></script>
 

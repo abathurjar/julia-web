@@ -45,6 +45,11 @@ const videoModalDescription = document.getElementById('videoModalDescription');
 
 // Функция открытия видео модалки
 function openVideoModal(videoSrc, title, description) {
+    if (!videoModal) {
+        console.error('Video modal not found!');
+        return;
+    }
+    
     videoModal.style.display = 'block';
     modalVideo.src = videoSrc;
     videoModalTitle.textContent = title;
@@ -59,6 +64,8 @@ function openVideoModal(videoSrc, title, description) {
 
 // Функция закрытия видео модалки
 function closeVideoModal() {
+    if (!videoModal) return;
+    
     videoModal.style.display = 'none';
     modalVideo.pause();
     modalVideo.currentTime = 0;
@@ -66,16 +73,23 @@ function closeVideoModal() {
 }
 
 // Закрытие по клику вне видео
-videoModal.addEventListener('click', function(e) {
-    if (e.target === videoModal) {
-        closeVideoModal();
-    }
-});
+if (videoModal) {
+    videoModal.addEventListener('click', function(e) {
+        if (e.target === videoModal) {
+            closeVideoModal();
+        }
+    });
+}
 
 // Закрытие по Escape
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && videoModal.style.display === 'block') {
-        closeVideoModal();
+    if (e.key === 'Escape') {
+        if (videoModal && videoModal.style.display === 'block') {
+            closeVideoModal();
+        }
+        if (modal && modal.style.display === 'block') {
+            closeModal();
+        }
     }
 });
 
@@ -84,10 +98,16 @@ function initVideoPreviews() {
     document.querySelectorAll('.video-container video').forEach(video => {
         // Устанавливаем видео на начало и приостанавливаем
         video.currentTime = 0.1;
+        video.muted = true;
+        
+        // Пытаемся проиграть немного для превью, затем пауза
         video.play().then(() => {
-            video.pause();
+            setTimeout(() => {
+                video.pause();
+            }, 100);
         }).catch(e => {
             // Игнорируем ошибки автовоспроизведения
+            console.log('Preview autoplay blocked');
         });
     });
 }
@@ -101,6 +121,8 @@ const closeBtn = document.querySelector('.modal-close');
 
 // Функция открытия модального окна
 function openModal(imgSrc, title, description) {
+    if (!modal) return;
+    
     modal.style.display = 'block';
     modalImg.src = imgSrc;
     modalTitle.textContent = title;
@@ -110,6 +132,8 @@ function openModal(imgSrc, title, description) {
 
 // Функция закрытия модального окна
 function closeModal() {
+    if (!modal) return;
+    
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
 }
@@ -126,34 +150,28 @@ document.querySelectorAll('.gallery-item img').forEach(img => {
 });
 
 // Закрытие по клику на крестик
-closeBtn.addEventListener('click', closeModal);
+if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+}
 
 // Закрытие по клику вне изображения
-modal.addEventListener('click', function(e) {
-    if (e.target === modal) {
-        closeModal();
-    }
-});
-
-// Закрытие по клавише Escape
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        if (modal.style.display === 'block') {
+if (modal) {
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
             closeModal();
         }
-        if (videoModal.style.display === 'block') {
-            closeVideoModal();
-        }
-    }
-});
+    });
+}
 
 // Прокрутка галереи
 function scrollGallery(direction) {
     const carousel = document.getElementById('galleryCarousel');
-    carousel.scrollBy({
-        left: direction,
-        behavior: 'smooth'
-    });
+    if (carousel) {
+        carousel.scrollBy({
+            left: direction,
+            behavior: 'smooth'
+        });
+    }
 }
 
 // === БУРГЕР-МЕНЮ ===

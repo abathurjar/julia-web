@@ -101,14 +101,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// === ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ===
-document.addEventListener('DOMContentLoaded', function() {
-    // Запускаем фоновые видео
-    initBackgroundVideos();
-    
-    console.log('Сайт загружен! Модальное окно готово к работе.');
-});
-
 // Прокрутка галереи
 function scrollGallery(direction) {
     const carousel = document.getElementById('galleryCarousel');
@@ -118,30 +110,16 @@ function scrollGallery(direction) {
     });
 }
 
-// Автопрокрутка галереи (опционально)
-function initGalleryAutoScroll() {
-    const carousel = document.getElementById('galleryCarousel');
-    let scrollAmount = 0;
-    
-    setInterval(() => {
-        scrollAmount += 300;
-        if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
-            scrollAmount = 0;
-        }
-        carousel.scrollTo({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    }, 4000);
-}
-
 // === БУРГЕР-МЕНЮ ===
 function initBurgerMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     
     if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', function() {
+        console.log('Бургер-меню инициализировано'); // Для отладки
+        
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // Предотвращаем всплытие
             navLinks.classList.toggle('active');
             // Меняем иконку бургера на крестик и обратно
             this.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
@@ -162,23 +140,35 @@ function initBurgerMenu() {
                 menuToggle.textContent = '☰';
             }
         });
+    } else {
+        console.log('Элементы бургер-меню не найдены'); // Для отладки
     }
 }
 
-// В функции DOMContentLoaded добавь:
+// === ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ===
 document.addEventListener('DOMContentLoaded', function() {
     // Запускаем фоновые видео
     initBackgroundVideos();
-    initBurgerMenu(); // Добавляем инициализацию бургер-меню
+    
+    // Инициализируем бургер-меню
+    initBurgerMenu();
     
     console.log('Сайт загружен! Модальное окно и бургер-меню готовы к работе.');
 });
 
-// В функции DOMContentLoaded добавь:
-document.addEventListener('DOMContentLoaded', function() {
-    // Запускаем фоновые видео
-    initBackgroundVideos();
-    initBurgerMenu(); // Добавляем инициализацию бургер-меню
+// Автопрокрутка галереи (опционально)
+function initGalleryAutoScroll() {
+    const carousel = document.getElementById('galleryCarousel');
+    let scrollAmount = 0;
     
-    console.log('Сайт загружен! Модальное окно и бургер-меню готовы к работе.');
-});
+    setInterval(() => {
+        scrollAmount += 300;
+        if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+            scrollAmount = 0;
+        }
+        carousel.scrollTo({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    }, 4000);
+}

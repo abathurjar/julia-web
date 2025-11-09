@@ -538,7 +538,7 @@ nav {
 /* Элементы галереи с эффектом подвешивания */
 .gallery-item {
     flex: 0 0 320px;
-    height: 450px;
+    height: 550px; /* ← ИЗМЕНИТЬ: было 450px, стало 550px (+100px) */
     background: #ffffff;
     border-radius: 15px;
     overflow: hidden;
@@ -1160,7 +1160,7 @@ footer p {
     
     .gallery-item {
         flex: 0 0 280px;
-        height: 380px;
+        height: 480px;
     }
     
     .scroll-indicator {

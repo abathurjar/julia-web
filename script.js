@@ -101,6 +101,58 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+// === УЛУЧШЕННАЯ ГАЛЕРЕЯ ===
+function initGallery() {
+    const carousel = document.getElementById('galleryCarousel');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    // Drag to scroll для десктопа
+    carousel.addEventListener('mousedown', (e) => {
+        isDown = true;
+        carousel.style.cursor = 'grabbing';
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+        isDown = false;
+        carousel.style.cursor = 'grab';
+    });
+
+    carousel.addEventListener('mouseup', () => {
+        isDown = false;
+        carousel.style.cursor = 'grab';
+    });
+
+    carousel.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 2;
+        carousel.scrollLeft = scrollLeft - walk;
+    });
+
+    // Добавляем интерактивность для мобильных
+    carousel.addEventListener('touchstart', (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener('touchend', () => {
+        isDown = false;
+    });
+
+    carousel.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 2;
+        carousel.scrollLeft = scrollLeft - walk;
+    });
+}
+
 // Прокрутка галереи
 function scrollGallery(direction) {
     const carousel = document.getElementById('galleryCarousel');
@@ -108,6 +160,31 @@ function scrollGallery(direction) {
         left: direction,
         behavior: 'smooth'
     });
+}
+
+// Автопрокрутка галереи (опционально)
+function initGalleryAutoScroll() {
+    const carousel = document.getElementById('galleryCarousel');
+    let scrollAmount = 0;
+    let autoScroll = true;
+    
+    // Останавливаем автоскролл при взаимодействии пользователя
+    carousel.addEventListener('mouseenter', () => autoScroll = false);
+    carousel.addEventListener('mouseleave', () => autoScroll = true);
+    carousel.addEventListener('touchstart', () => autoScroll = false);
+    
+    setInterval(() => {
+        if (!autoScroll) return;
+        
+        scrollAmount += 400;
+        if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+            scrollAmount = 0;
+        }
+        carousel.scrollTo({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    }, 5000);
 }
 
 // === БУРГЕР-МЕНЮ ===
@@ -153,22 +230,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализируем бургер-меню
     initBurgerMenu();
     
-    console.log('Сайт загружен! Модальное окно и бургер-меню готовы к работе.');
-});
-
-// Автопрокрутка галереи (опционально)
-function initGalleryAutoScroll() {
-    const carousel = document.getElementById('galleryCarousel');
-    let scrollAmount = 0;
+    // Инициализируем улучшенную галерею
+    initGallery();
     
-    setInterval(() => {
-        scrollAmount += 300;
-        if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
-            scrollAmount = 0;
-        }
-        carousel.scrollTo({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    }, 4000);
-}
+    // Автопрокрутка галереи (раскомментируйте если нужно)
+    // initGalleryAutoScroll();
+    
+    console.log('Сайт загружен! Все функции готовы к работе.');
+});

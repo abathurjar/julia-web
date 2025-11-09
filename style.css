@@ -442,219 +442,39 @@ nav {
     }
 }
 
-/* ===== ГАЛЕРЕЯ РАБОТ ===== */
-.gallery-section {
-    padding: 6rem 3rem;
-    background: #f8f8f8;
-    position: relative;
-    overflow: hidden;
-}
-
-.gallery-section h2 {
-    text-align: center;
-    font-size: 3rem;
-    margin-bottom: 4rem;
-    color: #000000;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    position: relative;
-}
-
-.gallery-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: #00ff88;
-}
-
-/* Контейнер для галереи с вешалкой */
-.gallery-container {
-    position: relative;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 0;
-}
-
-/* Вешалка (декоративная линия) */
-.gallery-hanger {
-    position: absolute;
-    top: 0;
-    left: 50px;
-    right: 50px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00ff88, transparent);
-    z-index: 1;
-}
-
-.gallery-hanger::before {
-    content: '🎨';
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5rem;
-    background: #f8f8f8;
-    padding: 0 10px;
-}
-
-/* Карусель с улучшенным скроллом */
-.gallery-carousel {
+/* Альтернатива: Облако работ */
+.gallery-cloud {
     display: flex;
-    gap: 2.5rem;
-    padding: 4rem 2rem 2rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: #00ff88 transparent;
-    cursor: grab;
-    position: relative;
-    z-index: 2;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 2rem;
+    perspective: 1000px;
 }
 
-.gallery-carousel::-webkit-scrollbar {
-    height: 8px;
-}
-
-.gallery-carousel::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.gallery-carousel::-webkit-scrollbar-thumb {
-    background: #00ff88;
-    border-radius: 4px;
-}
-
-.gallery-carousel::-webkit-scrollbar-thumb:hover {
-    background: #00cc6a;
-}
-
-.gallery-carousel:active {
-    cursor: grabbing;
-}
-
-/* Элементы галереи с эффектом подвешивания */
-.gallery-item {
-    flex: 0 0 320px;
-    height: 450px;
+.gallery-cloud-item {
+    flex: 0 0 280px;
+    height: 400px;
     background: #ffffff;
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    position: relative;
-    transform-origin: center top;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
 }
 
-.gallery-item::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 10px;
-    background: #00ff88;
-    border-radius: 5px 5px 0 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.gallery-cloud-item:nth-child(odd) {
+    transform: rotate(-2deg);
 }
 
-.gallery-item:hover::before {
-    opacity: 1;
+.gallery-cloud-item:nth-child(even) {
+    transform: rotate(2deg);
 }
 
-.gallery-item:hover {
-    transform: translateY(-15px) scale(1.03);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-    cursor: pointer;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.08);
-}
-
-.gallery-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-    color: white;
-    padding: 2rem 1.5rem 1.5rem;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-}
-
-.gallery-item:hover .gallery-overlay {
-    transform: translateY(0);
-}
-
-.gallery-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-.gallery-description {
-    font-size: 1rem;
-    opacity: 0.9;
-}
-
-/* Индикатор прокрутки */
-.scroll-indicator {
-    text-align: center;
-    margin-top: 2rem;
-    color: #666;
-    font-size: 0.9rem;
-    opacity: 0.7;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-}
-
-/* Кнопки навигации галереи */
-.carousel-nav {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 3rem;
-}
-
-.carousel-btn {
-    width: 60px;
-    height: 60px;
-    border: 2px solid #00ff88;
-    background: transparent;
-    border-radius: 50%;
-    color: #00ff88;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.carousel-btn:hover {
-    background: #00ff88;
-    color: white;
-    transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+.gallery-cloud-item:hover {
+    transform: rotate(0deg) scale(1.05) translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    z-index: 10;
 }
 
 /* ===== РАБОТЫ (WORKS) ===== */

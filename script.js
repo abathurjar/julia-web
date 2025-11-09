@@ -135,5 +135,41 @@ function initGalleryAutoScroll() {
     }, 4000);
 }
 
-// Добавь в DOMContentLoaded:
-// initGalleryAutoScroll(); // Раскомментируй если хочешь автопрокрутку
+// === БУРГЕР-МЕНЮ ===
+function initBurgerMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            // Меняем иконку бургера на крестик и обратно
+            this.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // Закрываем меню при клике на ссылку
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            });
+        });
+        
+        // Закрываем меню при клике вне его области
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('nav') && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
+        });
+    }
+}
+
+// В функции DOMContentLoaded добавь:
+document.addEventListener('DOMContentLoaded', function() {
+    // Запускаем фоновые видео
+    initBackgroundVideos();
+    initBurgerMenu(); // Добавляем инициализацию бургер-меню
+    
+    console.log('Сайт загружен! Модальное окно и бургер-меню готовы к работе.');
+});

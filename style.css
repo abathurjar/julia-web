@@ -24,6 +24,12 @@ body {
     position: relative;
 }
 
+/* ===== БУРГЕР-МЕНЮ ===== */
+/* Скрываем бургер на десктопе */
+.menu-toggle {
+    display: none;
+}
+
 /* ===== ФОН И АНИМАЦИИ ===== */
 /* Анимированный фон для всего сайта */
 body::before {
@@ -940,59 +946,102 @@ footer p {
     opacity: 0.9;
 }
 
-/* ===== АДАПТИВНОСТЬ ДЛЯ ШИРОКИХ ЭКРАНОВ ===== */
-@media (min-width: 1400px) {
-    .hero-content h1 {
-        font-size: 6rem;
-    }
-    
-    .tagline {
-        font-size: 1.6rem;
-    }
-    
-    .description {
-        font-size: 1.4rem;
-        max-width: 700px;
-    }
-    
-    .works-grid {
-        grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
-        gap: 5rem;
-    }
-    
-    .work-item h3 {
-        font-size: 1.6rem;
-    }
-    
-    .work-item p {
-        font-size: 1.2rem;
-    }
-    
-    .about-text {
-        font-size: 1.6rem;
-    }
-}
-
-@media (min-width: 1800px) {
-    .works-grid {
-        grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-        gap: 6rem;
-    }
-    
-    .hero-content h1 {
-        font-size: 7rem;
-    }
-}
-
 /* ===== МОБИЛЬНАЯ АДАПТИВНОСТЬ ===== */
 @media (max-width: 768px) {
+    /* Бургер-меню */
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #000000;
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1001;
+    }
+    
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        margin-left: 0;
+        padding: 1rem 0;
+        font-size: 1rem;
+        font-weight: 600;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .nav-links a:last-child {
+        border-bottom: none;
+    }
+    
+    .nav-links a:hover {
+        color: #00ff88;
+        background: rgba(0, 255, 136, 0.05);
+    }
+    
+    .nav-links a::after {
+        display: none; /* Убираем подчеркивание на мобильных */
+    }
+
+    /* Шапка и навигация */
+    header {
+        padding: 1rem 1.5rem;
+        position: relative;
+    }
+    
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+    
+    .logo {
+        font-size: 1.1rem;
+        gap: 8px;
+        z-index: 1001;
+    }
+    
+    .logo::before {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .logo::after {
+        width: 8px;
+        height: 8px;
+        left: 12px;
+    }
+    
+    /* Остальные стили остаются без изменений */
     .video-container {
         background: #ffffff;
     }
     
     .hero {
         padding: 0 1.5rem;
-        margin-top: 60px;
+        margin-top: 80px;
     }
     
     .hero-content h1 {
@@ -1063,21 +1112,23 @@ footer p {
         padding-bottom: 75%;
     }
     
-    /* Логотип на мобильных */
-    .logo {
-        font-size: 1.1rem;
-        gap: 8px;
+    /* Галерея на мобильных */
+    .gallery-section {
+        padding: 4rem 1rem;
     }
     
-    .logo::before {
-        width: 16px;
-        height: 16px;
+    .gallery-carousel {
+        gap: 1rem;
+        padding: 1rem 0;
     }
     
-    .logo::after {
-        width: 8px;
-        height: 8px;
-        left: 12px;
+    .gallery-item {
+        flex: 0 0 250px;
+        height: 400px;
+    }
+    
+    .carousel-nav {
+        margin-top: 1.5rem;
     }
     
     /* Модальное окно на мобильных */
